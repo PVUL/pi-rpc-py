@@ -1,6 +1,6 @@
 # pi-rpc
 
-An async Python client for the [pi coding agent](https://www.npmjs.com/package/@earendil-works/pi-coding-agent)'s
+An async Python client for the [pi coding agent](https://github.com/earendil-works/pi)'s
 headless RPC mode.
 
 pi can run as a long-lived process speaking JSON Lines over stdin/stdout
