@@ -77,7 +77,7 @@ The text worth *speaking or displaying* lives inside `message_update`, whose
 
 | sub-type | meaning | show it? |
 |---|---|---|
-| `text_start` / `text_delta` / `text_end` | the reply | **yes** |
+| `text_delta` (bracketed by `text_start`/`text_end`) | the reply | **yes** |
 | `thinking_start` / `thinking_delta` / `thinking_end` | reasoning | usually not |
 | `toolcall_start` / `toolcall_delta` / `toolcall_end` | tool arguments | no |
 

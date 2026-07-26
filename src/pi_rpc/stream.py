@@ -48,26 +48,15 @@ def _sub(event: Event) -> dict[str, Any] | None:
 def text_delta(event: Event) -> str | None:
     """The next chunk of speakable assistant text, or ``None``.
 
-    Note ``text_start`` also carries the first character(s) in its partial content,
-    so both start and delta are consulted; ignoring ``text_start`` drops the opening
-    of every reply.
+    Only ``text_delta`` is consulted. ``text_start`` appears to carry the opening of
+    the reply in its ``partial`` content, but that text is *repeated* by the first
+    ``text_delta`` — reading both duplicates the first token of every message.
     """
     sub = _sub(event)
-    if sub is None:
+    if sub is None or sub.get("type") != "text_delta":
         return None
-    kind = sub.get("type")
-    if kind == "text_delta":
-        delta = sub.get("delta")
-        return delta if isinstance(delta, str) else None
-    if kind == "text_start":
-        partial = sub.get("partial") or {}
-        content = partial.get("content") or []
-        index = sub.get("contentIndex", 0)
-        for block in content:
-            if block.get("index") == index and block.get("type") == "text":
-                text = block.get("text")
-                return text if isinstance(text, str) else None
-    return None
+    delta = sub.get("delta")
+    return delta if isinstance(delta, str) else None
 
 
 def thinking_delta(event: Event) -> str | None:
